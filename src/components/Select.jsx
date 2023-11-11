@@ -4,105 +4,141 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 function Select() {
-  const languageList = ['리액트', '자바', '스프링', '리액트네이티브'];
-  const [language, setLanguage] = useState('리액트');
-  const [showList, setShowList] = useState(false);
+  const languageList = ['react', 'java', 'spring', 'reactnative'];
+  const languageList1 = ['react!', 'java!', 'spring!', 'reactnative!'];
+  const [language, setLanguage] = useState('react');
+  const [language1, setLanguage1] = useState('react!');
+  const [activeSelect, setActiveSelect] = useState(null);
 
-  const toggleShowList = useCallback(() => setShowList(!showList), [showList]);
+  const toggleShowList = useCallback(() => {
+    setActiveSelect(activeSelect === 'list1' ? null : 'list1');
+  }, [activeSelect]);
+
+  const toggleShowList1 = useCallback(() => {
+    setActiveSelect(activeSelect === 'list2' ? null : 'list2');
+  }, [activeSelect]);
 
   const liClickHandler = (index) => {
     setLanguage(languageList[index]);
-    toggleShowList();
+    setActiveSelect(null);
+  };
+
+  const liClickHandler1 = (index) => {
+    setLanguage1(languageList1[index]);
+    setActiveSelect(null);
   };
 
   const selectWrapRef = useRef();
+
   useEffect(() => {
     const clickListOutside = (e) => {
       if (selectWrapRef.current && !selectWrapRef.current.contains(e.target)) {
-        toggleShowList();
+        setActiveSelect(null);
       }
     };
     document.addEventListener('mousedown', clickListOutside);
     return () => {
       document.removeEventListener('mousedown', clickListOutside);
     };
-  }, [toggleShowList]);
-
-  
+  }, []);
 
   return (
-    <>
-      <Wrap>
+    <Wrap>
       <h1>Select</h1>
-        <SelectButton
-          onClick={toggleShowList}
-        >
+      <ButtonContainer>
+        <SelectButton onClick={toggleShowList} ref={selectWrapRef} active={activeSelect === 'list1'}>
           {language}
           <FontAwesomeIcon icon={faCaretDown} />
         </SelectButton>
-        {
-          showList &&
-          <div
-            ref={selectWrapRef}
-          >
-            <LanguageUl>
-            {
-              languageList.map((item, index) => {
-                return (
-                  <LanguageLi
-                    key={index}
-                    onClick={() => liClickHandler(index)}
-                  >
-                    { item }
-                  </LanguageLi>
-                )
-              })
-            }
-            </LanguageUl>
-          </div>
-        }
-      </Wrap>
-    </>
-  )
+
+        <SelectButton1 onClick={toggleShowList1} ref={selectWrapRef}>
+          {language1}
+          <FontAwesomeIcon icon={faCaretDown} />
+        </SelectButton1>
+      </ButtonContainer>
+
+      {(activeSelect === 'list1' || activeSelect === 'list2') && (
+        <div>
+          <LanguageUl showList1={activeSelect === 'list2'}>
+            {activeSelect === 'list1' &&
+              languageList.map((item, index) => (
+                <LanguageLi key={index} onClick={() => liClickHandler(index)}>
+                  {item}
+                </LanguageLi>
+              ))}
+            {activeSelect === 'list2' &&
+              languageList1.map((item, index) => (
+                <LanguageLi key={index} onClick={() => liClickHandler1(index)}>
+                  {item}
+                </LanguageLi>
+              ))}
+          </LanguageUl>
+        </div>
+      )}
+    </Wrap>
+  );
 }
 
 const Wrap = styled.div`
-    margin: 30px auto; 
-    width: 300px; 
-    margin-left: 5%;
-    padding-top: 5px;
-    position: relative; // 부모 요소의 위치를 상대적으로 설정
-    border: 5px solid #e0c8d4;
-    border-radius: 15px;
-    margin-top: 30px;
-    overflow: visible; // overflow를 visible로 설정
-    margin-bottom: 200px;
+  margin: 0;
+  height: 250px;
+  width: 800px;
+  margin-left: 5%;
+  padding-top: 5px;
+  border: 5px solid #e0c8d4;
+  border-radius: 15px;
+  margin-top: 30px;
+  margin-bottom: 200px;
+  overflow: hidden;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
 `;
 
 const SelectButton = styled.button`
-  width: 100%; 
-  height: 40px;
+  width: calc(50% - 5px);
   padding: 0 20px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   background-color: white;
   border: 1px solid lightgrey;
   border-radius: 10px;
   cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  height: 30px;
+  text-overflow: ellipsis;
+  margin: auto;
+`;
+
+const SelectButton1 = styled.button`
+  width: calc(50% - 5px);
+  margin: auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  height: 30px;
 `;
 
 const LanguageUl = styled.ul`
-  width: 100%; 
-  height: 200px; 
-  overflow-y: auto; 
+  width: 100%;
+  overflow-y: ${(props) => (props.showList1 ? 'auto' : 'visible')};
   margin: 0;
   padding: 0;
   list-style: none;
+  max-height: ${(props) => (props.showList1 ? '150px' : '0')};
+  transition: max-height 0.3s ease-in-out;
 `;
 
 const LanguageLi = styled.li`
-  width: 100%; 
+  width: 100%;
   height: 40px;
   display: flex;
   justify-content: center;
@@ -126,6 +162,4 @@ const LanguageLi = styled.li`
   }
 `;
 
-
-
-export default Select
+export default Select;

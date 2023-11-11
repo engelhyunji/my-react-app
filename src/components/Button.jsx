@@ -19,9 +19,9 @@ function Button({ size, color, icon, onClick, children }) {
   const colorHandler = (color) => {
     switch (color) {
       case 'primary':
-        return `border: 3px solid #55EFC4; background-color: #55EFC4`;
+        return `border: 3px solid #343f5c; font-weight: blod; background-color: #343f5c`;
       case 'negative':
-        return `border: 3px solid #FAB1A0; color: #D63031; background-color: #FAB1A0`;
+        return `border: 3px solid #e4c1c5; font-weight: blod; color: #b43c55; background-color: #e4c1c5`;
       default:
         return ''; // Add a default case to handle any other values
     }

@@ -100,7 +100,9 @@ function Modal() {
         <>
           <Dark></Dark>
           <SmallModalWrap>
-            <p>닫기와 확인 버튼 2개가 있고, 외부 영역을 눌러도 모달이 닫히지 않아요.</p>
+            <p>
+            <h2>닫기와 확인 버튼 2개가 있고,<br /> 외부 영역을 눌러도 모달이 닫히지 않아요.<br />닫기 버튼을 누르면 닫혀요!</h2>
+            </p>
             <SmallBtnWrap>
               <PinkButton onClick={SmallToggleModal}>닫기</PinkButton>
               <PinkButton>확인</PinkButton>
@@ -114,7 +116,7 @@ function Modal() {
           <LargeModalWrap>
             <LargeModalBtn onClick={LargeToggleModal}>X</LargeModalBtn>
             <p>
-              닫기 버튼 1개가 있고, 외부 영역을 누르면 모달이 닫혀요.
+              <h2>닫기 버튼 1개가 있고,<br /> 외부 영역을 누르면<br /> 모달이 닫혀요!</h2>
             </p>
           </LargeModalWrap>
         </>
@@ -124,3 +126,6 @@ function Modal() {
 }
 
 export default Modal;
+
+
+
