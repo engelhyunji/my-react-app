@@ -7,4 +7,5 @@
 
 </p>
 
-### git과 Sourcetree 문제로 다시 git 설정하고, Sourcetree 재설정,, 브랜치 협업하기 전에는 master로 올리잣
+##### git과 Sourcetree 문제로 다시 git 설정하고, 
+##### Sourcetree 삭제 및 설치,, 재설정,, 브랜치 협업하기 전에는 master로 올리잣
