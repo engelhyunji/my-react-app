@@ -5,7 +5,7 @@
 
 <p>
 
-<img src="https://github.com/engelhyunji/my-react-app/assets/145903783/4a7fc40d-23a4-4dd8-a92d-70f5235ea58c" width="700" height="370">
+<img src="https://github.com/engelhyunji/my-react-app/assets/145903783/4a7fc40d-23a4-4dd8-a92d-70f5235ea58c" >
 
 </p>
 
